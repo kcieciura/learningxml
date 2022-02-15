@@ -1,89 +1,77 @@
 ﻿using System;
 using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
+using System.Collections.Generic;
 
 namespace learningxml
-{ 
-    class ReadWriteXML
+{
+    public class Employees
+    {
+        public List<Employee> employeeList = new List<Employee>();
+    }
+    public class Employee
+    {
+        public string ID;
+        public string name;
+        public string salary;
+    }
+
+    public class ReadXML
     {
         public void readdoc(string path)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(path);
-            XmlNodeList employeeNodes = xmlDoc.SelectNodes("//employees/employee");
+            XmlSerializer serializer = new XmlSerializer(typeof(Employees));
+            FileStream fs = new FileStream(path, FileMode.Open);
+                       
+            Employees empList = (Employees)serializer.Deserialize(fs);
 
-            Console.WriteLine("=============================");
-
-            foreach (XmlNode emp in employeeNodes)
+            foreach (var emp in empList.employeeList)
             {
-                Console.WriteLine($"ID: {emp.Attributes["ID"].Value} | Name: {emp.Attributes["Name"].Value} | Salary {emp.Attributes["Salary"].Value}");
+                Console.WriteLine($"{emp.ID}, {emp.name}, {emp.salary}");
             }
-            Console.ReadKey();
         }
+    }
 
+    class WriteXML
+    {  
         public void writedoc(string path)
         {
             Random rand = new Random();
 
             string[] names = { "Joe", "Emma", "Liam", "Kamil", "Waldo", "Beth", "Liz", "Andrew" };
 
-            XmlDocument xmlDoc = new XmlDocument();
-            XmlNode rootNode = xmlDoc.CreateElement("employees");
-            xmlDoc.AppendChild(rootNode);
+            
+            XmlSerializer serializer = new XmlSerializer(typeof(Employees));
+            TextWriter writer = new StreamWriter(path);
+
+            Employees empList = new Employees();
 
             foreach (string name in names)
             {
-                XmlNode empNode = xmlDoc.CreateElement("employee");
-
-                XmlAttribute attribute = xmlDoc.CreateAttribute("ID");
-                attribute.Value = $"{rand.Next() % 100}";
-                empNode.Attributes.Append(attribute);
-
-                attribute = xmlDoc.CreateAttribute("Name");
-                attribute.Value = $"{name}";
-                empNode.Attributes.Append(attribute);
-
-                attribute = xmlDoc.CreateAttribute("Salary");
-                attribute.Value = $"{30000 + 10000 * (rand.Next() % 10)}";
-                empNode.Attributes.Append(attribute);
-
-                rootNode.AppendChild(empNode);
-            }
-            xmlDoc.Save(path);
-        }
-
-        public void changeMinSalary(string path, int newMin) //change minimum salary of employees to newMin
-        {
-
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(path);
-            XmlNodeList employeeNodes = xmlDoc.SelectNodes("//employees/employee");
-
-            foreach (XmlNode emp in employeeNodes)
-            {
-                int empSalary = int.Parse(emp.Attributes["Salary"].Value);
-
-                if (empSalary < newMin)
-                {
-                    emp.Attributes["Salary"].Value = $"{newMin}";
-                }
+                Employee em = new Employee();
+                em.ID = $"{rand.Next() % 100}";
+                em.name = $"{name}";
+                em.salary = $"{30000 + 10000 * (rand.Next() % 10)}";
+                empList.employeeList.Add(em);              
             }
 
-            Console.WriteLine($"\nMinimum salary changed to ${newMin}\n");
-            xmlDoc.Save(path);
+            serializer.Serialize(writer, empList);
+            writer.Close();      
         }
     }
-    
+
     class Program
     {
         static void Main(string[] args)
         {
-            ReadWriteXML rw = new ReadWriteXML();
+            WriteXML wx = new WriteXML();
+            ReadXML rx = new ReadXML();
+            
             string path = "C:\\Users\\kamil\\source\\repos\\employees.xml";
 
-            rw.writedoc(path);
-            rw.readdoc(path);
-            rw.changeMinSalary(path, 70000);
-            rw.readdoc(path);
+            wx.writedoc(path);
+            rx.readdoc(path);
         }
     }
 }
