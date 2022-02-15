@@ -1,0 +1,13 @@
+C:\Users\kamil\source\repos\learningxml\learningxml\bin\Debug\netcoreapp3.1\learningxml.exe
+C:\Users\kamil\source\repos\learningxml\learningxml\bin\Debug\netcoreapp3.1\learningxml.deps.json
+C:\Users\kamil\source\repos\learningxml\learningxml\bin\Debug\netcoreapp3.1\learningxml.runtimeconfig.json
+C:\Users\kamil\source\repos\learningxml\learningxml\bin\Debug\netcoreapp3.1\learningxml.runtimeconfig.dev.json
+C:\Users\kamil\source\repos\learningxml\learningxml\bin\Debug\netcoreapp3.1\learningxml.dll
+C:\Users\kamil\source\repos\learningxml\learningxml\bin\Debug\netcoreapp3.1\learningxml.pdb
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.csprojAssemblyReference.cache
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.AssemblyInfoInputs.cache
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.AssemblyInfo.cs
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.csproj.CoreCompileInputs.cache
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.dll
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.pdb
+C:\Users\kamil\source\repos\learningxml\learningxml\obj\Debug\netcoreapp3.1\learningxml.genruntimeconfig.cache
